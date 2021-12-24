@@ -1,0 +1,12 @@
+FROM node:16.9.0
+WORKDIR /app
+COPY package.json /app
+RUN yarn install
+# COPY public /app
+# COPY app /app
+# COPY remix.config.js /app
+# COPY remix.env.d.ts /app
+# COPY tsconfig.json /app
+COPY . /app
+
+CMD ["yarn", "dev"]
