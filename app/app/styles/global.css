@@ -11,4 +11,58 @@
     --background: #111116;
     --card-background: #202224;
     --font-family: 'jakarta', sans-serif;
+    --main-radius: 10px;
+}
+
+body {
+    background: var(--background);
+    font-family: var(--font-family);
+    color: #fff;
+}
+
+.button {
+    padding: 13px 30px;
+    min-width: 150px;
+    border: none;
+    font-family: var(--font-family);
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: var(--main-radius);
+    background: var(--main-gradient);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .25);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonContainer .shortcut {
+    font-size: .8rem;
+    font-weight: 300;
+    padding-top: 3px;
+}
+
+.buttonContainer:hover .button  {
+    background: var(--secondary-gradient);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .4);
+}
+
+.buttonContainer .button:active:not(:disabled) {
+    transform: scale(.99);
+}
+
+.buttonContainer .button:disabled {
+    background: rgba(255, 255, 255, .2);
+    cursor: auto;
+    opacity: .7;
+    box-shadow: none;
+}
+
+.buttonContainer .shortcut.disabled {
+    opacity: .5;
 }
