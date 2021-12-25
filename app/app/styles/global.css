@@ -1,0 +1,14 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --main-gradient: linear-gradient(86.96deg, #EC6EAD 0%, #3494E6 100%);
+    --secondary-gradient: linear-gradient(98.6deg, #EC6EAD -6.89%, #3494E6 114.76%);
+    --red: #E43D65;
+    --green: #3DE444;
+    --background: #111116;
+    --card-background: #202224;
+    --font-family: 'jakarta', sans-serif;
+}
