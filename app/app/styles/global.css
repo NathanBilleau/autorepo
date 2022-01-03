@@ -8,6 +8,7 @@
     --secondary-gradient: linear-gradient(98.6deg, #EC6EAD -6.89%, #3494E6 114.76%);
     --red: #E43D65;
     --green: #3DE444;
+    --orange: #E4833D;
     --background: #111116;
     --card-background: #202224;
     --font-family: 'jakarta', sans-serif;
@@ -19,6 +20,9 @@ body {
     background: var(--background);
     font-family: var(--font-family);
     color: #fff;
+    width: 90vw;
+    margin: 0 auto;
+    padding-bottom: 50px;
 }
 
 
@@ -86,6 +90,16 @@ body {
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .4);
 }
 
+.buttonContainer:hover .button:not(:disabled).red  {
+    background: var(--red);
+    filter: brightness(1.2);
+}
+
+.buttonContainer:hover .button:not(:disabled).secondary  {
+    background: var(--card-background);
+    filter: brightness(1.2);
+}
+
 .buttonContainer:hover .button:not(:disabled).toggle {
     background: var(--card-background);
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .4);
@@ -101,7 +115,7 @@ body {
 
 .buttonContainer .button:disabled {
     background: rgba(255, 255, 255, .2);
-    cursor: auto;
+    cursor: not-allowed;
     opacity: .7;
     box-shadow: none;
 }
@@ -113,10 +127,25 @@ body {
 
 
 /* title */
-.title {
+.title,
+.titlePrepend {
     font-size: 3rem;
     font-weight: 900;
     font-family: var(--font-family);
+}
+
+.titlePrepend {
+    border: none;
+    display: inline;
+    background: none;
+    color: #fff;
+    opacity: .3;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.titlePrepend:hover {
+    opacity: 1;
 }
 
 /* info */
@@ -133,25 +162,31 @@ body {
 /* field */
 
 .fieldContainer {
+    margin: 15px 0;
+    display: block;
+}
+
+.fieldContainer .field {
     position: relative;
-    width: 300px;
     display: flex;
     align-items: center;
     background: var(--card-background);
     border-radius: var(--main-radius);
 }
 
-.fieldContainer .fieldInput {
+.fieldContainer .field .fieldInput {
     border: none;
     padding: 13px 40px;
     background: transparent;
     color: #fff;
     width: 100%;
     resize: none;
+    font-family: var(--font-family);
     border-radius: var(--main-radius);
+    font-weight: 500;
 }
 
-.fieldContainer .fieldIcon {
+.fieldContainer .field .fieldIcon {
     padding: 10px;
     color: #fff;
     position: absolute;
@@ -159,7 +194,7 @@ body {
     opacity: .7;
 }
 
-.fieldContainer .fieldErase {
+.fieldContainer .field .fieldErase {
     border: none;
     background: transparent;
     cursor: pointer;
@@ -167,8 +202,8 @@ body {
     opacity: 0;
 }
 
-.fieldContainer .fieldInput:focus ~ .fieldIcon,
-.fieldContainer:hover .fieldInput ~ .fieldIcon {
+.fieldContainer .field .fieldInput:focus ~ .fieldIcon,
+.fieldContainer:hover .field .fieldInput ~ .fieldIcon {
     opacity: 1;
 }
 
@@ -182,7 +217,11 @@ body {
 /* section title */
 
 .sectionTitleContainer {
-    margin-bottom: 10px;
+    margin: 50px 0 20px;
+}
+
+.sectionTitleContainer:first-of-type {
+    margin-top: 0;
 }
 
 .sectionTitleContainer .sectionTitle {
@@ -203,16 +242,16 @@ body {
 
 /* repository card */
 .repositoryCardContainer {
-    padding: 10px;
+    padding: 15px;
     background-color: var(--card-background);
     box-sizing: border-box;
-    border-radius: var(--main-radius);
+    border-radius: calc(var(--main-radius) * 1.5);
     box-shadow: var(--shadow);
-    max-width: 400px;
 }
 
 .repositoryCardContainer .repositoryCardName {
     font-size: 1.1rem;
+    line-height: 1.1rem;
 }
 
 .repositoryCardContainer .repositoryCardUrl a {
@@ -220,10 +259,12 @@ body {
     font-weight: 400;
     text-decoration: none;
     font-size: .9rem;
+    line-height: .9rem;
 }
 
 .repositoryCardContainer .repositoryCardDescription {
     font-size: .9rem;
+    margin: 10px 0 20px;
 }
 
 .repositoryCardContainer .repositoryCardFooter {
@@ -235,4 +276,42 @@ body {
 .repositoryCardContainer .repositoryCardFooter .repositoryCardFooterInfoContainer {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    gap: 15px
+}
+
+/* status */ 
+
+.textStatusContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.status {
+    /* display: 'inline-block'; */
+    vertical-align: middle;
+    height: 7px;
+    width: 7px;
+    border-radius: 15px;
+    color: var(--card-background);
+    margin: 0 7px;
+}
+
+.status-large {
+    height: 15px;
+    width: 15px;
+    margin: 0 15px;
+}
+
+.status-running {
+    background-color: var(--green);
+}
+
+.status-updating {
+    background-color: var(--orange);
+}
+
+.status-stopped {
+    background-color: var(--red);
 }

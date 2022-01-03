@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 interface FieldProps {
     placeholder: string
     icon?: IconProp
-    defaultValue?: string
-    onChange: () => void
+    defaultValue?: string | number
+    onChange: React.ChangeEventHandler<HTMLInputElement>
     type?: React.HTMLInputTypeAttribute
     erase: () => void
     label?: string
@@ -14,9 +14,9 @@ interface FieldProps {
 
 const Field: VFC<FieldProps> = ({ placeholder, icon, defaultValue, onChange, type, erase, label }) => {
     return (
-        <label>
+        <label className="fieldContainer">
             {label && <span className="fieldLabel">{label}</span>}
-            <div className="fieldContainer">
+            <div className="field">
                 <input className="fieldInput" placeholder={placeholder} defaultValue={defaultValue} onChange={onChange} type={type ?? 'text'} />
                 {icon && <FontAwesomeIcon icon={icon} className='fieldIcon' />}
                 <button className="fieldIcon fieldErase" onClick={erase}>
