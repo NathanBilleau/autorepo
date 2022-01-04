@@ -124,14 +124,13 @@ body {
     opacity: .5;
 }
 
-
-
 /* title */
 .title,
 .titlePrepend {
     font-size: 3rem;
     font-weight: 900;
     font-family: var(--font-family);
+    transition: .2s;
 }
 
 .titlePrepend {
@@ -141,7 +140,7 @@ body {
     color: #fff;
     opacity: .3;
     cursor: pointer;
-    transition: .2s;
+    /* transition: .2s; */
 }
 
 .titlePrepend:hover {

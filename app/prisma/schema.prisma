@@ -21,6 +21,7 @@ model User {
 
 model Repository {
   id            Int @id @default(autoincrement())
+  path          String
   name          String
   userId        Int @unique
   user          User @relation(fields: [userId], references: [id])
@@ -31,6 +32,9 @@ model Repository {
   branch        String
   lastCommit    String
   domains       Domain[]
+  startCommand  String
+  stopCommand   String
+  restartCommand String?
 }
 
 model Domain {

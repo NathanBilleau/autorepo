@@ -1,5 +1,6 @@
 import React, { VFC, useState } from 'react'
-import { LoaderFunction, useLoaderData, useNavigate } from 'remix'
+import { ActionFunction, LoaderFunction, useLoaderData, useNavigate } from 'remix'
+import db from '~/utils/db.server'
 
 import Title from '~/components/title'
 import SectionTitle from '~/components/sectionTitle'
@@ -8,16 +9,101 @@ import Domain from '~/components/domain'
 import Button from '~/components/button'
 import Status from '~/components/status'
 
+
+const getRepo = async (repository: number) => {
+    const repo = await db.repository.findFirst({
+        where: {
+            id: repository
+        }
+    })
+
+    if (repo) {
+        return repo
+    }
+
+    throw new Error('Repository not found')
+}
+
+const start = async (repository: number): Promise<boolean> => {
+    try {
+        const { exec } = require('child_process')
+        const repo = await getRepo(repository)
+
+        if (repo) {
+            const { startCommand, restartCommand, stopCommand, path } = repo
+            const command = restartCommand || (stopCommand + ' && ' + startCommand)
+            exec(`cd ${path} && ${command}`)
+        }
+
+        return true
+    }
+    catch (err) {
+        console.error(err)
+        return false
+    }
+}
+const stop = async (repository: number): Promise<boolean> => {
+    try {
+        const { exec } = require('child_process')
+        const repo = await getRepo(repository)
+
+        if (repo) {
+            const { stopCommand, path } = repo
+            exec(`cd ${path} && ${stopCommand}`)
+        }
+
+        return true
+    }
+    catch (err) {
+        console.error(err)
+        return false
+    }
+}
+
+// const pull = async (repository: number): Promise<boolean> => {
+//     try {
+//         const repo = await getRepo(repository)
+
+//         return true
+//     }
+//     catch(err) {
+//         console.error(err)
+//         return false
+//     }
+// }
+
+
+interface IActions {
+    start: () => Promise<boolean>,
+    stop: () => Promise<boolean>
+    // pull: () => Promise<boolean>
+}
+const actions = {
+    'start': start,
+    'stop': stop,
+    // 'pull': pull
+}
+
+export const action: ActionFunction = async ({ request }) => {
+    const formData = await request.formData()
+    const actionName = await formData.get('action')?.toString() as keyof IActions
+    const repository = await formData.get('repository')?.toString()
+
+
+    return repository ? await actions[actionName]?.(parseInt(repository)) : false
+}
+
 export const loader: LoaderFunction = () => {
     return {
-        name: 'asali-server'
+        name: 'asali-server',
+        id: 123
     }
 }
 
 const Repository: VFC = () => {
     const navigate = useNavigate()
-
     const repo = useLoaderData()
+
     const [domains, setDomains] = useState([
         {
             address: 'azeaze.com',
@@ -56,13 +142,16 @@ const Repository: VFC = () => {
                 <Title prepend={{ text: 'Repositories/', onClick: back }} text={repo.name} />
                 <Status size="large" status="running" />
             </div>
-            <div className="actionsContainer">
-                <Button text="start/restart" shortcut='cmd + shift + b' color="primary" onClick={start} />
-                <Button text="stop" shortcut='cmd + shit + q' color="secondary" disabled onClick={stop} />
-                <Button text="pull & restart" shortcut='cmd + shift + r' color="secondary" onClick={pull} />
-                <Button text="stop & remove" shortcut='cmd + shift + return' color="secondary" disabled onClick={remove} />
-                <Button text="autopull & restart" color="secondary" toggle onClick={() => { }} />
-            </div>
+            <form method='POST'>
+                <div className="actionsContainer">
+                    <input type='hidden' name="repository" value={repo.id} />
+                    <Button text="start/restart" shortcut='cmd + shift + b' color="primary" onClick={start} submit value="start" />
+                    <Button text="stop" shortcut='cmd + shit + q' color="secondary" disabled onClick={stop} submit value="stop" />
+                    <Button text="pull & restart" shortcut='cmd + shift + r' color="secondary" onClick={pull} submit value="pull" />
+                    <Button text="stop & remove" shortcut='cmd + shift + return' color="secondary" disabled onClick={remove} submit value="remove" />
+                    <Button text="autopull & restart" color="secondary" toggle onClick={() => { }} submit value="toggle" />
+                </div>
+            </form>
             <div className="repositoryLayout">
                 <div>
                     <SectionTitle text="Commands" />
