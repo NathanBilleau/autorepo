@@ -247,6 +247,11 @@ body {
     box-sizing: border-box;
     border-radius: calc(var(--main-radius) * 1.5);
     box-shadow: var(--shadow);
+    transition: .2s;
+}
+
+.repositoryCardContainer:hover {
+    transform: scale(1.01);
 }
 
 .repositoryCardContainer .repositoryCardName {
@@ -295,13 +300,13 @@ body {
     width: 7px;
     border-radius: 15px;
     color: var(--card-background);
-    margin: 0 7px;
+    margin: 7px 7px 0;
 }
 
 .status-large {
     height: 15px;
     width: 15px;
-    margin: 0 15px;
+    margin: 15px 15px 0;
 }
 
 .status-running {
@@ -314,4 +319,23 @@ body {
 
 .status-stopped {
     background-color: var(--red);
+}
+
+/* popup */
+
+.popupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 30vw;
+    background-color: var(--background);
+    box-shadow: var(--shadow);
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    border-radius: var(--main-radius);
+    padding: 20px 20px 0;
+}
+
+.popupContainer .popupFooter {
+    justify-content: flex-end;
 }

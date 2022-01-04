@@ -14,10 +14,10 @@ const Domain: VFC<DomainProps> = ({ domain, port, canAdd, addDomain }) => {
     return (
         <div className="domainContainer">
             <Field placeholder="domain" label="Domain" icon="globe" defaultValue={domain} onChange={() => { }} erase={() => { }} />
-            <FontAwesomeIcon icon={'arrow-right'} />
+            <FontAwesomeIcon icon={'arrow-right'} className='icon' />
             <Field placeholder="port" label="Port" icon="window-maximize" defaultValue={port} type='number' onChange={() => { }} erase={() => { }} />
             {canAdd && (
-                <button className="domainAdd" onClick={addDomain}>
+                <button className="domainAdd icon" onClick={addDomain}>
                     <FontAwesomeIcon icon={'plus'} />
                 </button>
             )}

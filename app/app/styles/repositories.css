@@ -72,6 +72,10 @@
     font-size: 1rem;
 }
 
+.domainContainer .icon {
+    transform: translateY(13px);
+}
+
 /* actionsContainer */
 
 .actionsContainer {

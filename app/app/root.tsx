@@ -11,9 +11,10 @@ import type { MetaFunction } from "remix";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCodeBranch, faMemory, faClock, faMicrochip, faHdd, faTimes, faSearch, faTerminal, faGlobe, faWindowMaximize, faArrowRight, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import globalStyle from "~/styles/global.css";
 
-library.add(faCodeBranch, faMemory, faClock, faMicrochip, faHdd, faTimes, faSearch, faTerminal, faGlobe, faWindowMaximize, faArrowRight, faPlus)
+library.add(faCodeBranch, faMemory, faClock, faMicrochip, faHdd, faTimes, faSearch, faTerminal, faGlobe, faWindowMaximize, faArrowRight, faPlus, faGithub)
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };

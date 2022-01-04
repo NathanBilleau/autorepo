@@ -72,8 +72,8 @@ const Repository: VFC = () => {
 
                     <SectionTitle text="Domains" />
                     {
-                        domains.map(domain => (
-                            <Domain key={domain.address} domain={domain.address} port={domain.port} addDomain={addDomain} canAdd />
+                        domains.map((domain, index) => (
+                            <Domain key={domain.address} domain={domain.address} port={domain.port} addDomain={addDomain} canAdd={index === domains.length - 1} />
                         ))
                     }
                 </div>
